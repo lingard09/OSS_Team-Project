@@ -1,5 +1,29 @@
 import React, { useState } from 'react';
+import { Container, Row, Col, Card, Button, Form, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
+
+const MovieCard = ({ movie, onAddToWatchLater }) => {
+  return (
+    <Card>
+      <Card.Img 
+        variant="top" 
+        src={movie.poster_path 
+          ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` 
+          : '/placeholder-image.jpg'
+        } 
+        alt={movie.title}
+      />
+      <Card.Body>
+        <Card.Title>{movie.title}</Card.Title>
+        <Card.Text>Release Date: {movie.release_date}</Card.Text>
+        <Card.Text>Rating: {movie.vote_average}/10</Card.Text>
+        <Button variant="danger" onClick={() => onAddToWatchLater(movie)}>
+          Add to Watch Later
+        </Button>
+      </Card.Body>
+    </Card>
+  );
+};
 
 function SearchPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -10,7 +34,7 @@ function SearchPage() {
     try {
       const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
         params: {
-          api_key: 'YOUR_TMDB_API_KEY',
+          api_key: '58b9c110c826a149e66a565692a23e40',
           query: searchTerm,
           language: 'en-US'
         }
@@ -30,35 +54,33 @@ function SearchPage() {
   };
 
   return (
-    <div className="search-page">
-      <h1>Search Movies</h1>
-      <form onSubmit={handleSearch}>
-        <input 
-          type="text" 
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Enter movie title"
-        />
-        <button type="submit">Search</button>
-      </form>
+    <Container>
+      <h1 className="my-4">Search Movies</h1>
+      <Form onSubmit={handleSearch} className="mb-4">
+        <InputGroup>
+          <Form.Control
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Enter movie title"
+          />
+          <Button variant="danger" type="submit">
+            Search
+          </Button>
+        </InputGroup>
+      </Form>
 
-      <div className="search-results">
-        {searchResults.map(movie => (
-          <div key={movie.id} className="movie-card">
-            <img 
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-              alt={movie.title} 
+      <Row xs={1} sm={2} md={3} lg={5} className="g-4">
+        {searchResults.map((movie) => (
+          <Col key={movie.id}>
+            <MovieCard 
+              movie={movie} 
+              onAddToWatchLater={addToWatchLater} 
             />
-            <h3>{movie.title}</h3>
-            <p>Release Date: {movie.release_date}</p>
-            <p>Rating: {movie.vote_average}/10</p>
-            <button onClick={() => addToWatchLater(movie)}>
-              Add to Watch Later
-            </button>
-          </div>
+          </Col>
         ))}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 }
 

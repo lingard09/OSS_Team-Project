@@ -1,13 +1,88 @@
+/* Global Styles */
 body {
+  font-family: Arial, sans-serif;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Navbar Styles */
+.navbar {
+  background-color: #E50914;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.navbar-brand a {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-menu a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+/* Top Movies Section Styles */
+.top-movies-section {
+  padding: 2rem;
+}
+
+.top-movies {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+}
+
+.movie-card {
+  background-color: #f2f2f2;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.movie-info {
+  padding: 1rem;
+}
+
+.movie-info h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.movie-info p {
+  margin: 0;
+  color: #666;
+}
+
+.movie-info button {
+  background-color: #E50914;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* Watch Later Section Styles */
+.watch-later-section {
+  padding: 2rem;
+}
+
+.watch-later {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
 }

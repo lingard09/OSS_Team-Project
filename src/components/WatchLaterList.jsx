@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 
 function WatchLaterList() {
   const [watchLaterMovies, setWatchLaterMovies] = useState([]);
@@ -15,28 +16,43 @@ function WatchLaterList() {
   };
 
   return (
-    <div className="watch-later-list">
-      <h1>Watch Later List</h1>
+    <Container className="watch-later-list mt-4">
+      <h2 className="mb-4">Watch Later List</h2>
       {watchLaterMovies.length === 0 ? (
-        <p>No movies in your Watch Later list</p>
+        <Alert variant="info">
+          No movies in your Watch Later list
+        </Alert>
       ) : (
-        <div className="movie-grid">
+        <Row xs={1} md={2} lg={4} className="g-4">
           {watchLaterMovies.map(movie => (
-            <div key={movie.id} className="movie-card">
-              <img 
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-                alt={movie.title} 
-              />
-              <h3>{movie.title}</h3>
-              <p>Release Date: {movie.release_date}</p>
-              <button onClick={() => removeFromWatchLater(movie.id)}>
-                Remove from Watch Later
-              </button>
-            </div>
+            <Col key={movie.id}>
+              <Card className="h-100">
+                <Card.Img 
+                  variant="top" 
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+                  alt={movie.title}
+                />
+                <Card.Body>
+                  <Card.Title>{movie.title}</Card.Title>
+                  <Card.Text>
+                    Release Date: {movie.release_date}
+                  </Card.Text>
+                  <Card.Text>
+                    Rating: {movie.vote_average}/10
+                  </Card.Text>
+                  <Button
+                    variant="danger"
+                    onClick={() => removeFromWatchLater(movie.id)}
+                  >
+                    Remove from Watch Later
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
-        </div>
+        </Row>
       )}
-    </div>
+    </Container>
   );
 }
 
