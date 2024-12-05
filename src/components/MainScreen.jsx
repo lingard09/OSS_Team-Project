@@ -33,6 +33,8 @@ function MainScreen() {
     }
   };
 
+  
+
   return (
     <div className="main-screen">
       <h1>Top 50 Movies of the Year</h1>

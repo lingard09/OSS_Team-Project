@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
 import Navbar from './components/Navbar';
 import MainScreen from './components/MainScreen';
 import WatchLaterList from './components/WatchLaterList';
