@@ -5,6 +5,44 @@ body {
   padding: 0;
 }
 
+.logo {
+  width: 40px; /* 로고 크기 조정 */
+  height: auto;
+  margin-right: 10px; /* 텍스트와 로고 사이 간격 */
+  margin-left: -10px; /* 왼쪽 간격 줄이기 */
+}
+
+.App {
+  min-height: 100vh;
+  background-color: black;
+}
+
+.dark-theme {
+  background-color: #121212;
+  min-height: 100vh;
+}
+
+.container-inner {
+  max-width: 1200px;  /* 최대 너비 설정 */
+  margin: 0 auto;     /* 중앙 정렬 */
+  padding: 0 15px;    /* 내부 여백 */
+}
+
+.movie-card {
+  transition: transform 0.2s;
+  border: 1px solid #2d2d2d;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Modal close button color */
+.modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
 /* Navbar Styles */
 .navbar {
   background-color: #E50914;

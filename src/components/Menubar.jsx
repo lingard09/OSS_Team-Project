@@ -7,6 +7,7 @@ function Menubar() {
     <Navbar bg="danger" variant="dark" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
+        <img src="logo.png" alt="로고" className="logo" />
           Top 50 Movies
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
