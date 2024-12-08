@@ -1,56 +1,81 @@
-/* Global Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+/* === Global Styles === */
+html {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
 }
 
-.logo {
-  width: 40px; /* 로고 크기 조정 */
-  height: auto;
-  margin-right: 10px; /* 텍스트와 로고 사이 간격 */
-  margin-left: -10px; /* 왼쪽 간격 줄이기 */
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  margin-right: 0;
+  overflow-x: hidden;
+}
+
+/* === Typography === */
+.page-title,
+.text-light.mb-4,
+.container-inner h1.text-light {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 2rem !important;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+h1, h2, h3, .card-title, .modal-title {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 1px;
+}
+
+.movie-card .card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.card-text strong {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* === App & Themes === */
+.App, .dark-theme {
+  min-height: 100vh;
 }
 
 .App {
-  min-height: 100vh;
   background-color: black;
 }
 
 .dark-theme {
-  background-color: #121212;
-  min-height: 100vh;
+  background-color: #141414;
+  padding-top: 80px;
 }
 
 .container-inner {
-  max-width: 1200px;  /* 최대 너비 설정 */
-  margin: 0 auto;     /* 중앙 정렬 */
-  padding: 0 15px;    /* 내부 여백 */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.movie-card {
-  transition: transform 0.2s;
-  border: 1px solid #2d2d2d;
+/* === Footer === */
+footer {
+  text-align: center;
+  color: gray;
 }
 
-.movie-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+/* === Navbar === */
+.netflix-nav {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  padding: 1rem 0;
+  height: 70px;
 }
 
-/* Modal close button color */
-.modal-header .btn-close {
-  filter: invert(1) grayscale(100%) brightness(200%);
-}
-
-/* Navbar Styles */
-.navbar {
-  background-color: #E50914;
-  color: #fff;
+.netflix-brand {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  gap: 8px;
 }
 
 .navbar-brand a {
@@ -60,28 +85,77 @@ body {
   text-decoration: none;
 }
 
-.navbar-menu a {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 1rem;
+.brand-text {
+  font-family: "Bebas Neue", cursive;
+  color: #e50914 !important;
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-left: 5px;
+  line-height: 1;
+  display: block;
+  padding-top: 3px;
 }
 
-/* Top Movies Section Styles */
-.top-movies-section {
+.logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+}
+
+.nav-text {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: #e5e5e5 !important;
+  transition: color 0.2s ease;
+}
+
+.nav-text:hover {
+  color: #ffffff !important;
+}
+
+.navbar-toggler {
+  border-color: #e5e5e5;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* === Buttons === */
+.btn {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* === Sections === */
+.top-movies-section,
+.watch-later-section {
   padding: 2rem;
 }
 
-.top-movies {
+.top-movies, .watch-later {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 1rem;
 }
 
+/* === Movie Cards === */
 .movie-card {
   background-color: #f2f2f2;
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  border: 1px solid #2d2d2d;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
 }
 
 .movie-card img {
@@ -95,8 +169,7 @@ body {
 }
 
 .movie-info h3 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem;
 }
 
 .movie-info p {
@@ -105,7 +178,7 @@ body {
 }
 
 .movie-info button {
-  background-color: #E50914;
+  background-color: #e50914;
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -114,13 +187,45 @@ body {
   margin-top: 1rem;
 }
 
-/* Watch Later Section Styles */
-.watch-later-section {
-  padding: 2rem;
+.movie-overview {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #f8f9fa;
+  margin-bottom: 1.5rem;
 }
 
-.watch-later {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 1rem;
+/* === Poster Detail === */
+.poster-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.poster-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.poster-overlay span {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.poster-container:hover .poster-overlay {
+  opacity: 1;
+}
+
+/* === Forms === */
+.form-control::placeholder {
+  color: #6c757d !important;
+  opacity: 1;
 }

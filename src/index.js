@@ -9,6 +9,8 @@ import Menubar from './components/Menubar';
 import MainScreen from './components/MainScreen';
 import WatchLaterList from './components/WatchLaterList';
 import SearchPage from './components/SearchPage';
+import MovieDetail from './components/MovieDetail';
+
 
 // App 컴포넌트
 function App() {
@@ -20,6 +22,7 @@ function App() {
           <Route path="/" element={<MainScreen />} />
           <Route path="/watch-later" element={<WatchLaterList />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
         </Routes>
       </div>
     </Router>
