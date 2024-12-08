@@ -60,9 +60,49 @@ h1, h2, h3, .card-title, .modal-title {
 }
 
 /* === Footer === */
-footer {
+.credits {
   text-align: center;
-  color: gray;
+  padding: 2rem 0;
+  margin-top: 3rem;
+}
+
+.footer-content {
+  position: relative;
+  padding: 1rem 0;
+}
+
+.footer-divider {
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #E50914, transparent);
+  margin: 0 auto 1rem;
+}
+
+.footer-text {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.footer-text:hover {
+  color: #fff;
+}
+
+.heart {
+  color: #E50914;
+  display: inline-block;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.developer-names {
+  color: #E50914;
+  font-weight: 500;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 /* === Navbar === */
