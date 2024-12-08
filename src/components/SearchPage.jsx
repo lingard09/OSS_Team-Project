@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Form, InputGroup } from 'react-bootstrap';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Container, Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import MovieCard from './MovieCard';  // 경로는 실제 파일 위치에 맞게 수정
 

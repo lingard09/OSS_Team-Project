@@ -3,7 +3,6 @@ import {
   Container,
   Row,
   Col,
-  Card,
   Button,
   Alert,
   Modal,
@@ -157,10 +156,10 @@ function WatchLaterList() {
                       ...movie,
                       onReviewClick: handleReviewClick,
                       onRemoveClick: handleRemoveClick,
-                      onDeleteReview: deleteReview
+                      onDeleteReview: deleteReview,
                     }}
                     showAddButton={false}
-                    enableDetail={false}  // 상세 페이지 이동 기능 비활성화
+                    enableDetail={false} // 상세 페이지 이동 기능 비활성화
                   />
                 </Col>
               ))}

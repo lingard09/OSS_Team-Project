@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import axios from "axios";
 
 function MovieDetail() {
   const { id } = useParams();
-  const location = useLocation();
   const [movieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
