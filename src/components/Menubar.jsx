@@ -11,15 +11,16 @@ const Menubar = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const location = useLocation();
+  const isHome = location.pathname === '/' || location.pathname === ''; 
 
   const handleLogoClick = (e) => {
     e.preventDefault();
     if (location.pathname.startsWith("/movie/")) {
-      navigate(-1); // 이전 페이지로 돌아가기
+      navigate(-1);
     } else if (searchParams.get("page")) {
-      navigate("/?page=1"); // 메인 페이지 1페이지로 이동
+      navigate("/?page=1");
     } else {
-      navigate("/"); // 그 외의 경우 홈으로 이동
+      navigate("/");
     }
   };
 
@@ -44,14 +45,61 @@ const Menubar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link as={Link} to="/" className="nav-text me-3">
-                Home
+              <Nav.Link
+                as={Link}
+                to="/"
+                className={`nav-link-custom me-3 ${isHome ? 'active' : ''}`}
+                style={
+                  location.pathname === "/"
+                    ? { color: "#E50914 !important" }
+                    : {}
+                }
+              >
+                🏠 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/watch-later" className="nav-text me-3">
-                Watch Later List
+              <Nav.Link
+                as={Link}
+                to="/watch-later"
+                className={`nav-link-custom me-3 ${
+                  location.pathname === "/watch-later" ? "active" : ""
+                }`}
+                style={
+                  location.pathname === "/watch-later"
+                    ? { color: "#E50914 !important" }
+                    : {}
+                }
+              >
+                📺 Watch Later List
               </Nav.Link>
-              <Nav.Link as={Link} to="/search" className="nav-text">
-                Search
+              <Nav.Link
+                as={Link}
+                to="/search"
+                className={`nav-link-custom me-3 ${
+                  location.pathname === "/search" ? "active" : ""
+                }`}
+                style={
+                  location.pathname === "/search"
+                    ? { color: "#E50914 !important" }
+                    : {}
+                }
+              >
+                {" "}
+                🔍 Search
+              </Nav.Link>
+              <Nav.Link
+                as={Link}
+                to="/ott"
+                className={`nav-link-custom ${
+                  location.pathname === "/ott" ? "active" : ""
+                }`}
+                style={
+                  location.pathname === "/ott"
+                    ? { color: "#E50914 !important" }
+                    : {}
+                }
+              >
+                {" "}
+                🎟️ OTT
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

@@ -10,6 +10,7 @@ import MainScreen from './components/MainScreen';
 import WatchLaterList from './components/WatchLaterList';
 import SearchPage from './components/SearchPage';
 import MovieDetail from './components/MovieDetail';
+import OTT from './components/OTT';
 
 
 // App 컴포넌트
@@ -23,6 +24,7 @@ function App() {
           <Route path="/watch-later" element={<WatchLaterList />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/movie/:id" element={<MovieDetail />} />
+          <Route path="/ott" element={<OTT />} />
         </Routes>
       </div>
     </Router>

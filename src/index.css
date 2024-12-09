@@ -164,6 +164,46 @@ h1, h2, h3, .card-title, .modal-title {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
+.nav-link-custom {
+  color: #e5e5e5 !important;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+  margin: 0 1rem;
+  position: relative;
+  transition: color 0.2s ease !important;
+}
+
+.nav-link-custom:hover {
+  color: #fff !important;
+}
+
+.nav-link-custom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #E50914;
+  transition: width 0.3s ease;
+}
+
+.nav-link-custom:hover::after {
+  width: 100%;
+}
+
+.nav-link-custom.active {
+  color: #E50914 !important;
+  font-weight: 500;
+}
+
+.nav-link-custom.active::after {
+  width: 100%;
+}
+
 /* === Buttons === */
 .btn {
   font-family: "Helvetica Neue", Arial, sans-serif;
@@ -232,6 +272,27 @@ h1, h2, h3, .card-title, .modal-title {
   line-height: 1.5;
   color: #f8f9fa;
   margin-bottom: 1.5rem;
+}
+
+/* === OTT logo === */
+.ott-logos {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ott-logo {
+  object-fit: contain;
+  border-radius: 2px;
+  padding: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.ott-logo:hover {
+  transform: scale(1.1);
 }
 
 /* === Poster Detail === */

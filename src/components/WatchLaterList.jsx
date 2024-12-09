@@ -166,6 +166,17 @@ function WatchLaterList() {
             </Row>
           )}
         </div>
+        <footer className="credits mt-5">
+          <div className="footer-content">
+            <div className="footer-divider"></div>
+            <p className="footer-text">
+              Made with <span className="heart">♥</span> by{" "}
+              <span className="developer-names">
+                CEO Wonjin Kim & Sungju Kim
+              </span>
+            </p>
+          </div>
+        </footer>
       </Container>
     </div>
   );

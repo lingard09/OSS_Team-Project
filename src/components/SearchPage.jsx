@@ -64,7 +64,7 @@ function SearchPage() {
                     name="searchInput"
                     type="text"
                     defaultValue={searchTerm}
-                    placeholder="Enter movie title 🔍"
+                    placeholder="Enter movie title..."
                     className="bg-dark text-light border-secondary"
                   />
                   <Button variant="danger" type="submit">
@@ -87,6 +87,17 @@ function SearchPage() {
             ))}
           </Row>
         </div>
+        <footer className="credits mt-5">
+          <div className="footer-content">
+            <div className="footer-divider"></div>
+            <p className="footer-text">
+              Made with <span className="heart">♥</span> by{" "}
+              <span className="developer-names">
+                CEO Wonjin Kim & Sungju Kim
+              </span>
+            </p>
+          </div>
+        </footer>
       </Container>
     </div>
   );

@@ -1,25 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const MovieCard = ({ movie, onAddToWatchLater, showAddButton = true, enableDetail = true }) => {
+const MovieCard = ({
+  movie,
+  onAddToWatchLater,
+  showAddButton = true,
+  enableDetail = true,
+}) => {
   const navigate = useNavigate();
   const [movieDetails, setMovieDetails] = useState(null);
+  const [watchProviders, setWatchProviders] = useState(null);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movie.id}`,
-          {
+        const [detailsResponse, providersResponse] = await Promise.all([
+          axios.get(`https://api.themoviedb.org/3/movie/${movie.id}`, {
             params: {
               api_key: "58b9c110c826a149e66a565692a23e40",
               append_to_response: "credits",
             },
-          }
-        );
-        setMovieDetails(response.data);
+          }),
+          axios.get(
+            `https://api.themoviedb.org/3/movie/${movie.id}/watch/providers`,
+            {
+              params: {
+                api_key: "58b9c110c826a149e66a565692a23e40",
+              },
+            }
+          ),
+        ]);
+        setMovieDetails(detailsResponse.data);
+        setWatchProviders(providersResponse.data.results.KR?.flatrate || []);
       } catch (error) {
         console.error("Error fetching movie details:", error);
       }
@@ -58,7 +72,7 @@ const MovieCard = ({ movie, onAddToWatchLater, showAddButton = true, enableDetai
           }
           alt={movie.title}
         />
-        {enableDetail && ( // 오버레이도 조건부 렌더링
+        {enableDetail && (
           <div className="poster-overlay">
             <span>Click for details</span>
           </div>
@@ -94,6 +108,42 @@ const MovieCard = ({ movie, onAddToWatchLater, showAddButton = true, enableDetai
               <strong>Release:</strong> {movie.release_date}
             </small>
           </p>
+          {watchProviders && watchProviders.length > 0 && (
+            <div className="ott-logos mt-2">
+              <p className="mb-1">
+                <small>
+                  <strong>Available on:</strong>
+                </small>
+              </p>
+              <div className="d-flex gap-1 flex-wrap align-items-center">
+                {watchProviders.map((provider) => (
+                  <OverlayTrigger
+                    key={provider.provider_id}
+                    placement="top"
+                    overlay={
+                      <Tooltip id={`tooltip-${provider.provider_id}`}>
+                        {provider.provider_name}
+                      </Tooltip>
+                    }
+                  >
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                      alt={provider.provider_name}
+                      className="ott-logo"
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        minWidth: "32px",
+                        minHeight: "32px",
+                        maxWidth: "32px",
+                        maxHeight: "32px",
+                      }}
+                    />
+                  </OverlayTrigger>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* 리뷰 표시 부분 추가 */}
@@ -116,17 +166,17 @@ const MovieCard = ({ movie, onAddToWatchLater, showAddButton = true, enableDetai
 
         {/* 버튼 부분 */}
         {!showAddButton && (
-          <div className="mt-auto d-flex gap-2">
+          <div className="mt-auto d-flex">
             <Button
               variant="primary"
-              className="w-100"
+              className="flex-grow-1 me-2"
               onClick={() => movie.onReviewClick?.(movie)}
             >
               {movie.review ? "Edit Review" : "Add Review"}
             </Button>
             <Button
               variant="danger"
-              className="w-100"
+              className="flex-grow-1"
               onClick={() => movie.onRemoveClick?.(movie)}
             >
               Remove
