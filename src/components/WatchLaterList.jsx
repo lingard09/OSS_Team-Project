@@ -8,7 +8,7 @@ import {
   Modal,
   Form,
 } from "react-bootstrap";
-import MovieCard from "./MovieCard"; // 경로는 실제 파일 위치에 맞게 수정
+import MovieCard from "./MovieCard";
 
 function WatchLaterList() {
   const [watchLaterMovies, setWatchLaterMovies] = useState([]);
@@ -16,12 +16,18 @@ function WatchLaterList() {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [review, setReview] = useState("");
+  const [filters, setFilters] = useState({
+    rating: 'all',
+    hasReview: 'all',
+    sortBy: 'date'
+  });
 
   useEffect(() => {
     const storedMovies = JSON.parse(localStorage.getItem("watchLater") || "[]");
     const moviesWithReviews = storedMovies.map((movie) => ({
       ...movie,
       review: movie.review || "",
+      addedDate: movie.addedDate || new Date().toISOString(),
     }));
     setWatchLaterMovies(moviesWithReviews);
   }, []);
@@ -70,13 +76,81 @@ function WatchLaterList() {
     localStorage.setItem("watchLater", JSON.stringify(updatedList));
   };
 
+  const getFilteredMovies = () => {
+    return [...watchLaterMovies]
+      .filter(movie => {
+        if (filters.rating !== 'all' && movie.vote_average < Number(filters.rating)) {
+          return false;
+        }
+        if (filters.hasReview === 'yes' && !movie.review) {
+          return false;
+        }
+        if (filters.hasReview === 'no' && movie.review) {
+          return false;
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        switch (filters.sortBy) {
+          case 'date':
+            return new Date(b.addedDate) - new Date(a.addedDate);
+          case 'rating':
+            return b.vote_average - a.vote_average;
+          case 'title':
+            return a.title.localeCompare(b.title);
+          default:
+            return 0;
+        }
+      });
+  };
+
+  const filteredMovies = getFilteredMovies();
+
   return (
     <div className="dark-theme">
       <Container fluid className="py-4 px-4 px-md-5">
         <div className="container-inner">
           <h1 className="text-light mb-4 page-title">Watch Later List</h1>
 
-          {/* 삭제 확인 모달 */}
+          {watchLaterMovies.length > 0 && (
+            <Row className="mb-4">
+              <Col md={4}>
+                <Form.Select
+                  value={filters.rating}
+                  onChange={(e) => setFilters({...filters, rating: e.target.value})}
+                  className="bg-dark text-light border-secondary"
+                >
+                  <option value="all">All Ratings</option>
+                  <option value="8">8+ ⭐️</option>
+                  <option value="7">7+ ⭐️</option>
+                  <option value="6">6+ ⭐️</option>
+                </Form.Select>
+              </Col>
+              <Col md={4}>
+                <Form.Select
+                  value={filters.hasReview}
+                  onChange={(e) => setFilters({...filters, hasReview: e.target.value})}
+                  className="bg-dark text-light border-secondary"
+                >
+                  <option value="all">All Movies</option>
+                  <option value="yes">With Review</option>
+                  <option value="no">Without Review</option>
+                </Form.Select>
+              </Col>
+              <Col md={4}>
+                <Form.Select
+                  value={filters.sortBy}
+                  onChange={(e) => setFilters({...filters, sortBy: e.target.value})}
+                  className="bg-dark text-light border-secondary"
+                >
+                  <option value="date">Latest Added</option>
+                  <option value="rating">Highest Rating</option>
+                  <option value="title">Movie Title</option>
+                </Form.Select>
+              </Col>
+            </Row>
+          )}
+
           <Modal
             show={showConfirmModal}
             onHide={() => setShowConfirmModal(false)}
@@ -103,7 +177,6 @@ function WatchLaterList() {
             </Modal.Footer>
           </Modal>
 
-          {/* 리뷰 작성 모달 */}
           <Modal
             show={showReviewModal}
             onHide={() => setShowReviewModal(false)}
@@ -149,7 +222,7 @@ function WatchLaterList() {
             </Row>
           ) : (
             <Row xs={1} md={2} lg={4} className="g-4">
-              {watchLaterMovies.map((movie) => (
+              {filteredMovies.map((movie) => (
                 <Col key={movie.id}>
                   <MovieCard
                     movie={{
@@ -159,7 +232,7 @@ function WatchLaterList() {
                       onDeleteReview: deleteReview,
                     }}
                     showAddButton={false}
-                    enableDetail={false} // 상세 페이지 이동 기능 비활성화
+                    enableDetail={false}
                   />
                 </Col>
               ))}
